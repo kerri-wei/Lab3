@@ -23,7 +23,7 @@ public class InLabByHandTranslator implements Translator {
     public List<String> getCountryLanguages(String country) {
 
         if (CANADA.equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh", "es", "mn"));
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "fr", "mn"));
         }
         return new ArrayList<>();
 
