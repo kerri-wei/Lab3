@@ -13,6 +13,7 @@ import java.util.List;
  * An implementation of the Translator interface which translates
  * the country code "can" to several languages.
  */
+
 public class InLabByHandTranslator implements Translator {
     /**
      * Returns the language abbreviations for all languages whose translations are
