@@ -13,7 +13,6 @@ import java.util.Map;
  */
 public class LanguageCodeConverter {
 
-    private static final int MIN_PARTS_LENGTH = 2;
     private Map<String, String> languageCodeMap;
 
     /**
@@ -35,11 +34,9 @@ public class LanguageCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-
             for (String line : lines) {
                 String[] parts = line.split("\\s+");
                 languageCodeMap.put(parts[1], parts[0]);
-
             }
 
         }
@@ -56,7 +53,7 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        return languageCodeMap.get(code);
+        return languageCodeMap.getOrDefault(code, "Unknown Language");
     }
 
     /**

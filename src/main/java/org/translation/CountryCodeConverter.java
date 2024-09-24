@@ -39,7 +39,7 @@ public class CountryCodeConverter {
 
             for (String line : lines) {
                 String[] parts = line.split("\t");
-                countryCodeMap.put(parts[2], parts[0]);
+                countryCodeMap.put(parts[2].toLowerCase(), parts[0]);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -53,7 +53,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        String countryName = countryCodeMap.get(code.toUpperCase());
+        String countryName = countryCodeMap.get(code.toLowerCase());
         if (countryName == null) {
             return "Unknown Country";
         }
@@ -66,7 +66,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // Iterate over the map to find the matching country name and return its code
         for (Map.Entry<String, String> entry : countryCodeMap.entrySet()) {
             if (entry.getValue().equalsIgnoreCase(country)) {
                 return entry.getKey();
@@ -80,7 +79,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // Return the size of the map which contains the country codes
         return countryCodeMap.size();
     }
 }

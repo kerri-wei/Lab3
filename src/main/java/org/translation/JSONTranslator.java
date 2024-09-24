@@ -44,11 +44,13 @@ public class JSONTranslator implements Translator {
                 JSONObject country = countries.getJSONObject(i);
 
                 String countryCode = country.getString("alpha3");
-                Map<String, String> translations = new HashMap<>();
+                System.out.println("Country code: " + countryCode);
 
+                Map<String, String> translations = new HashMap<>();
                 for (String key : country.keySet()) {
                     if (!"id".equals(key) && !"alpha2".equals(key) && !"alpha3".equals(key)) {
                         translations.put(key, country.getString(key));
+                        System.out.println("Language: " + key + " -> " + country.getString(key));  // Debugging
                     }
                 }
 
@@ -62,10 +64,12 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        if (countryTranslationsMap.containsKey(country)) {
-            Map<String, String> translations = countryTranslationsMap.get(country);
+        System.out.println("Fetching languages for country: " + country);
+        Map<String, String> translations = countryTranslationsMap.get(country);
+        if (translations != null) {
             return new ArrayList<>(translations.keySet());
         }
+        System.out.println("No languages found for country: " + country);
         return new ArrayList<>();
     }
 

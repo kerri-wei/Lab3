@@ -23,7 +23,6 @@ public class Main {
      * @param args not used by the program
      */
     public static void main(String[] args) {
-        // Use default constructor or specify the filename if needed
         Translator translator = new JSONTranslator();
         runProgram(translator);
     }
@@ -82,6 +81,7 @@ public class Main {
         List<String> languages = translator.getCountryLanguages(country);
         languages.replaceAll(languageCodeConverter::fromLanguageCode);
         Collections.sort(languages);
+        System.out.println(languages);
         languages.forEach(System.out::println);
         System.out.println("select a language from above:");
 
