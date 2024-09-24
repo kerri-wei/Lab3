@@ -56,7 +56,7 @@ public class JSONTranslationExample {
                 }
             }
         }
-        return "Country Not Found";
+        return "Country not found";
     }
 
     /**

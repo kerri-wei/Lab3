@@ -86,7 +86,7 @@ public class JSONTranslator implements Translator {
             return translations.get(language);
         }
         else {
-            return "Country Not Found";
+            return "Country not found";
         }
     }
 }

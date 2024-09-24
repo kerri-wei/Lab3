@@ -38,6 +38,12 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             for (String line : lines) {
+
+                // skips over first line in country-codes.txt
+                if (line.startsWith("Country")) {
+                    continue;
+                }
+
                 String[] parts = line.split("\t");
                 countryCodeMap.put(parts[2].toLowerCase(), parts[0]);
             }
