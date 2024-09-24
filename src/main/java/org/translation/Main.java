@@ -14,7 +14,8 @@ import java.util.Scanner;
  * - at any time, the user can type quit to quit the program<br/>
  */
 public class Main {
-    public static final String QUIT = "quit";
+    private static CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+    private static LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
 
     /**
      * This is the main entry point of our Translation System!<br/>
@@ -22,10 +23,8 @@ public class Main {
      * @param args not used by the program
      */
     public static void main(String[] args) {
-
-        Translator translator = new JSONTranslator(null);
-        // Translator translator = new InLabByHandTranslator();
-
+        // Use default constructor or specify the filename if needed
+        Translator translator = new JSONTranslator();
         runProgram(translator);
     }
 
@@ -36,17 +35,18 @@ public class Main {
      * @param translator the Translator implementation to use in the program
      */
     public static void runProgram(Translator translator) {
+        String quit = "quit";
         while (true) {
-            LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
-            CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
+            languageCodeConverter = new LanguageCodeConverter();
+            countryCodeConverter = new CountryCodeConverter();
 
             String country = countryCodeConverter.fromCountry(promptForCountry(translator));
-            if (QUIT.equals(country)) {
+            if (quit.equals(country)) {
                 break;
             }
 
             String language = languageCodeConverter.fromLanguage(promptForLanguage(translator, country));
-            if (QUIT.equals(language)) {
+            if (quit.equals(language)) {
                 break;
             }
 
@@ -55,7 +55,7 @@ public class Main {
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
-            if (QUIT.equals(textTyped)) {
+            if (quit.equals(textTyped)) {
                 break;
             }
         }
@@ -64,9 +64,6 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
-
-        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
-
         Collections.sort(countries);
         for (String country : countries) {
             System.out.println(countryCodeConverter.fromCountryCode(country));
@@ -83,15 +80,9 @@ public class Main {
     private static String promptForLanguage(Translator translator, String country) {
 
         List<String> languages = translator.getCountryLanguages(country);
-
-        LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
-
+        languages.replaceAll(languageCodeConverter::fromLanguageCode);
         Collections.sort(languages);
-
-        for (String language : languages) {
-            System.out.println(languageCodeConverter.fromLanguageCode(language));
-        }
-
+        languages.forEach(System.out::println);
         System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);

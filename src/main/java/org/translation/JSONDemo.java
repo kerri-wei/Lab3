@@ -12,6 +12,7 @@ public class JSONDemo {
      * A first example of working with JSON data.
      * @param args not used
      */
+
     public static void main(String[] args) {
         String jsonData = "[{\"key1\" : \"string1a\", \"key2\":21}, {\"key1\" : \"string1b\", \"key2\":22}]";
         JSONArray jsonArray = new JSONArray(jsonData);
@@ -33,8 +34,8 @@ public class JSONDemo {
      * @return value of key "key1" from the second object in the given jsonArray
      */
     public static String getKeyOneOfSecond(JSONArray jsonArray) {
-        // TODO: Complete this method.
-        return "";
+        JSONObject jsonObject = jsonArray.getJSONObject(1);
+        return jsonObject.getString("key1");
     }
 
 }

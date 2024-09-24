@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
+    private static final int MIN_PARTS_LENGTH = 3;
     private final Map<String, String> countryCodeMap;
 
     /**
@@ -36,12 +37,9 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // Iterate over the lines and populate the map
             for (String line : lines) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    countryCodeMap.put(parts[0].trim(), parts[1].trim());
-                }
+                String[] parts = line.split("\t");
+                countryCodeMap.put(parts[2], parts[0]);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -55,8 +53,11 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countryCodeMap.get(code);
-
+        String countryName = countryCodeMap.get(code.toUpperCase());
+        if (countryName == null) {
+            return "Unknown Country";
+        }
+        return countryName;
     }
 
     /**
