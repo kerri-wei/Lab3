@@ -44,13 +44,11 @@ public class JSONTranslator implements Translator {
                 JSONObject country = countries.getJSONObject(i);
 
                 String countryCode = country.getString("alpha3");
-                System.out.println("Country code: " + countryCode);
 
                 Map<String, String> translations = new HashMap<>();
                 for (String key : country.keySet()) {
                     if (!"id".equals(key) && !"alpha2".equals(key) && !"alpha3".equals(key)) {
                         translations.put(key, country.getString(key));
-                        System.out.println("Language: " + key + " -> " + country.getString(key));  // Debugging
                     }
                 }
 
